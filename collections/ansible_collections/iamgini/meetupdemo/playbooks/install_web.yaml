@@ -1,0 +1,9 @@
+---
+- name: Demo Molecule playbook
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Role Testing
+      ansible.builtin.include_role:
+        name: iamgini.meetupdemo.web
+        tasks_from: main.yml
