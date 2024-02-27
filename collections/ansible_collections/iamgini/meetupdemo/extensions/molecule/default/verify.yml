@@ -1,0 +1,12 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Gather package information
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Assert httpd package is instaled
+      ansible.builtin.assert:
+        that: ansible_facts.packages['httpd'] | length > 0

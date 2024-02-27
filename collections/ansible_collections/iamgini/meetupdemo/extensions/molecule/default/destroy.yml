@@ -8,6 +8,18 @@
     # Developer must implement.
 
     # Mandatory configuration for Molecule to function.
+    - name: Create
+      block:
+        - name: Destroy containers
+          containers.podman.podman_container:
+            name: "{{ item.name }}"
+            image: "{{ item.image }}"
+            state: absent
+            command: sleep 1d
+            # bash -c "while true; do sleep 10000; done"
+            log_driver: json-file
+          register: server
+          loop: "{{ molecule_yml.platforms }}"
 
     - name: Populate instance config
       ansible.builtin.set_fact:

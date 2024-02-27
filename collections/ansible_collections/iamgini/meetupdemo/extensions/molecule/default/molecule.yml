@@ -1,8 +1,36 @@
 ---
+dependency:
+  name: galaxy
+  options:
+    requirements-file: requirements.yml
 driver:
   name: default
+  options:
+    managed: false
+    login_cmd_template: "podman exec -it {instance} bash"
+    ansible_connection_options:
+      ansible_connection: podman
 platforms:
-  - name: instance
+  # - name: instance
+  - name: molecule-ubi8-init-1
+    image: registry.access.redhat.com/ubi8/ubi-init
+    workingDir: '/tmp'
+  - name: molecule-ubi9-init-1
+    image: registry.access.redhat.com/ubi9/ubi-init
+  # - name: molecule-fedora-40
+  #   image: fedora:40
     # you might want to add your own variables here based on what provisioning
     # you are doing like:
     # image: quay.io/centos/centos:stream8
+  - name: molecule-ubuntu
+    image: ubuntu:18.04
+
+scenario:
+  name: default
+  # test_sequence:
+  #   - dependency
+  #   - syntax
+  #   - create
+  #   - converge
+  #   - idempotence
+  #   - verify

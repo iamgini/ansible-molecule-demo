@@ -1,2 +1,20 @@
 ---
 # tasks file for web
+
+- name: Install and configure httpd web server
+  ansible.builtin.package:
+    name: httpd
+    state: installed
+
+# - name: Start httpd server
+#   ansible.builtin.service:
+#     name: httpd
+#     state: started
+#     enabled: true
+
+# - name: Copy Welcome message to default html
+#   ansible.builtin.copy:
+#     content: "Welcome to webserver"
+#     dest: /var/www/html/index.html
+#     owner: root
+#     mode: '0644'

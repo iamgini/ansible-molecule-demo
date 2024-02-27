@@ -4,8 +4,38 @@
   connection: local
   gather_facts: false
   # no_log: "{{ molecule_no_log }}"
+  vars:
+    molecule_inventory:
+      all:
+        hosts: {}
+        children:
+          molecule:
+            hosts: {}
   tasks:
     # TODO: Developer must implement and populate 'server' variable
+    - name: Create
+      block:
+        - name: Create a containers
+          containers.podman.podman_container:
+            name: "{{ item.name }}"
+            image: "{{ item.image }}"
+            state: started
+            command: sleep 1d
+            # bash -c "while true; do sleep 10000; done"
+            log_driver: json-file
+          register: server
+          loop: "{{ molecule_yml.platforms }}"
+
+        # - name: Fail if container is not running
+        #   when: >
+        #     item.container.State.ExitCode != 0 or
+        #     not item.container.State.Running
+        #   ansible.builtin.include_tasks:
+        #     file: tasks/create-fail.yml
+        #   loop: "{{ result.results }}"
+        #   loop_control:
+        #     label: "{{ item.container.Name }}"
+
 
     - name: Create instance config
       when: server.changed | default(false) | bool  # noqa no-handler
@@ -33,3 +63,10 @@
               {{ instance_conf | to_json | from_json | to_yaml }}
             dest: "{{ molecule_instance_config }}"
             mode: "0600"
+
+        # - debug:
+        #     msg:
+        #       - "{{ molecule_instance_config }}"
+        #       - "{{ instance_conf }}"
+        #       - "{{ instance_conf_dict }}"
+        #       - "{{ server }}"
