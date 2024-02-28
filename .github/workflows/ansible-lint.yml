@@ -3,8 +3,7 @@ name: ansible-lint
 on:
   pull_request:
     branches:
-      - 'devspaces-[0-9].[0-9]+-rhel-8'
-      - devspaces-3-rhel-8
+      - main
 jobs:
   build:
     name: Ansible Lint  # Naming the build is important to use it as a status check
