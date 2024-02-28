@@ -23,8 +23,15 @@ platforms:
     # you are doing like:
     # image: quay.io/centos/centos:stream8
   - name: molecule-ubuntu
-    image: ubuntu:18.04
-
+    image: ubuntu:latest
+  - name: molecule-centos-stream8
+    image: quay.io/centos/centos:stream8
+    command: /sbin/init
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
 scenario:
   name: default
   # test_sequence:
