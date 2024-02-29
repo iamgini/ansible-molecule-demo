@@ -38,6 +38,8 @@ default:
 ```
 
 - custom scenarios
+  - show by disabling the destroy part - containers wont be deleted.
+  - Then show with container cleanup as part of deletion
 
 ```yaml
 scenario:
