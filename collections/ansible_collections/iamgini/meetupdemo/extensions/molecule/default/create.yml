@@ -4,18 +4,18 @@
   connection: local
   gather_facts: false
   # no_log: "{{ molecule_no_log }}"
-  vars:
-    molecule_inventory:
-      all:
-        hosts: {}
-        children:
-          molecule:
-            hosts: {}
+  # vars:
+  #   molecule_inventory:
+  #     all:
+  #       hosts: {}
+  #       children:
+  #         molecule:
+  #           hosts: {}
   tasks:
     # TODO: Developer must implement and populate 'server' variable
     - name: Create
       block:
-        - name: Create a containers
+        - name: Create molecule instance as containers
           containers.podman.podman_container:
             name: "{{ item.name }}"
             image: "{{ item.image }}"

@@ -7,6 +7,6 @@
       ansible.builtin.debug:
         msg: "Testing on {{ inventory_hostname }}"
 
-    - name: "Include backup_file"
+    - name: Include web role
       ansible.builtin.include_role:
         name: iamgini.meetupdemo.web
